@@ -1,6 +1,6 @@
 "use strict";
 
-// this is not exposed to files requiring this file
+// this is not exposed to files requiring this file (as only ClickableButton is provided to module.exports)
 
 let instanceCount = 0;
 
@@ -65,15 +65,18 @@ class ClickableButton {
 // "private" to this file, thus not exposed onto external instance of ClickableButton
 
 function handleUnboundClick( event ) {
-    console.log("unbound click",this);
+    // log the caller of this function, e.g. who is the "this" in this execution context?
+    // it is the HTMLElement that fired the event listener
+    console.log("unbound click", this);
 }
 
 function handleBoundClick( event ) {
-    // this will basically log the caller of the function
-    console.log("bound click",this);
-    // log our private static int
-    console.log( "amount of clickableButton instances: " + instanceCount );
-    // execute the callback handler registered in the ClickableButton constructor
+    // log the caller of this function, e.g. who is the "this" in this execution context?
+    // it is an instance of ClickableButton that was bound to the callback
+    console.log("bound click", this);
+    // log our private static int just to show that we can
+    console.log("amount of clickableButton instances: " + instanceCount );
+    // execute the callback handler registered to this ClickableButton instance in its constructor
     this._callback();
 }
 
